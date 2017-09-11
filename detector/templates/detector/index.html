@@ -1,3 +1,7 @@
+<ul>
 {% for article in article_list %}
-    <h1>{{article}}</h1>
+    <li>
+        <a href="{% url 'detector:detail' article.id %}">{{article}}</a>
+    </li>
 {% endfor %}
+</ul>
