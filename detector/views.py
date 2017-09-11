@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from .models import Article
+from .models import Article, Props
+from .forms import PropForm
 
 def index(request):
     article_list = Article.objects.all()
@@ -7,4 +8,10 @@ def index(request):
 
 def detail(request, article_id):
     article = Article.objects.get(pk=article_id)
-    return render(request, 'detector/detail.html', {'article': article})
+    if request.method == "POST":
+        form = PropForm(request.POST)
+        if form.is_valid():
+            Props.objects.create(article=article, body=form)
+
+    form = PropForm()
+    return render(request, 'detector/detail.html', {'article': article, 'form': form})

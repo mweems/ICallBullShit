@@ -1,2 +1,24 @@
-<h1>{{article.headline}}</h1>
-<p>{{article.body}}</p>
+<html>
+    <head>
+        {% load static %}
+        <link rel="stylesheet" type="text/css" href="{% static 'detector/style.css'%}">
+    </head>
+    <body>
+        <div id="article">
+            <h2>{{article.headline}}</h2>
+            <p>{{article.body}}</p>
+        </div>
+        <div id="props">
+            {% for prop in article.props_set.all %}
+                <p>{{prop.body}}</p>
+            {% endfor %}
+        </div>
+        <div id="newProp">
+            <form method="post" >
+            {% csrf_token %}
+            {{form}}
+            <button type="submit" class="btn btn-default"&gt;Submit</button>
+            </form>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,16 @@
+#article {
+    width: 100%;
+    margin: 5px;
+}
+#props {
+    width: 35%;
+    border: 1px solid red;
+    margin: 5px;
+    float: left;
+}
+#newProp {
+    width: 60%;
+    border: 1px solid blue;
+    margin: 5px;
+    float: left;
+}
