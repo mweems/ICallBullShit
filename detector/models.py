@@ -5,10 +5,15 @@ class Article(models.Model):
     author = models.CharField(max_length=200)
     headline = models.CharField(max_length=200)
     body = models.TextField()
-    pub_date = models.DateTimeField(auto_now=False, auto_now_add=False)
+    pub_date = models.DateField(auto_now=False, auto_now_add=False)
+
+    def __str__(self):
+        text = ("%s - %s" % (self.headline, self.publisher))
+        return text
 
 
-class props(models.Model):
+class Props(models.Model):
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
     body = models.TextField()
-    created_date = models.DateTimeField(auto_now=False, auto_now_add=False)
+    created_date = models.DateField(auto_now=False, auto_now_add=True)
+
