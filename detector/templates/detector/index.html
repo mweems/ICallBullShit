@@ -3,5 +3,7 @@
     <li>
         <a href="{% url 'detector:detail' article.id %}">{{article}}</a>
     </li>
+{% empty %}
+    <li>There are currently no articles</li>
 {% endfor %}
 </ul>

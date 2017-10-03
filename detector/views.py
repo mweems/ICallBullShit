@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Article, Props
 from .forms import PropForm
 
@@ -8,6 +8,7 @@ def index(request):
 
 def detail(request, article_id):
     article = Article.objects.get(pk=article_id)
+
     if request.method == "POST":
         form = PropForm(request.POST)
         if form.is_valid():
