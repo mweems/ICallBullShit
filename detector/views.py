@@ -26,13 +26,18 @@ def search(request):
 
         response = requests.get(data['body'].value())
         paragraphs = justext.justext(response.content, justext.get_stoplist("English"))
-        body = []
-        for paragraph in paragraphs:
-            if not paragraph.is_boilerplate:
-                body.append(paragraph.text)
         if data.is_valid():
+            publisher = data['publisher'].value()
+            body = ''
+            for paragraph in paragraphs:
+                if publisher in paragraph.text:
+                    text = paragraph.text.replace(publisher, 'News Source')
+                else:
+                    text = paragraph.text
+                if not paragraph.is_boilerplate:
+                    body += text
             Article.objects.create(
-                publisher=data['publisher'].value(),
+                publisher=publisher,
                 author=data['author'].value(),
                 headline=data['headline'].value(),
                 body=body,

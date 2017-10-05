@@ -8,7 +8,7 @@ class Article(models.Model):
     pub_date = models.DateField(auto_now=False, auto_now_add=False)
 
     def __str__(self):
-        text = ("%s - %s" % (self.headline, self.publisher))
+        text = ("%s" % (self.headline))
         return text
 
 

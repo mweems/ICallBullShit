@@ -6,9 +6,7 @@
     <body>
         <div id="article">
             <h2>{{article.headline}}</h2>
-            {% for body in article.body %}
-            <p>{{body}}</p>
-            {% endfor %}
+            <p>{{article.body}}</p>
         </div>
         <div id="props">
             {% for prop in article.props_set.all %}
