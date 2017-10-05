@@ -1,0 +1,10 @@
+<ul>
+{% for article in article_list %}
+    <li>
+        <a href="{% url 'detector:detail' article.id %}">{{article}}</a>
+        <a href="{% url 'remove' article.id %}">Remove</a>
+    </li>
+{% empty %}
+    <li>There are currently no articles</li>
+{% endfor %}
+</ul>

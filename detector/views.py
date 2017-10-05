@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from .models import Article, Props
-from .forms import PropForm
+from .forms import PropForm, ArticleForm
+import requests
+import justext
 
 def index(request):
     article_list = Article.objects.all()
@@ -16,3 +18,25 @@ def detail(request, article_id):
 
     form = PropForm()
     return render(request, 'detector/detail.html', {'article': article, 'form': form})
+
+def search(request):
+    form = ArticleForm()
+    if request.method == 'POST':
+        data = ArticleForm(request.POST)
+
+        response = requests.get(data['body'].value())
+        paragraphs = justext.justext(response.content, justext.get_stoplist("English"))
+        body = []
+        for paragraph in paragraphs:
+            if not paragraph.is_boilerplate:
+                body.append(paragraph.text)
+        if data.is_valid():
+            Article.objects.create(
+                publisher=data['publisher'].value(),
+                author=data['author'].value(),
+                headline=data['headline'].value(),
+                body=body,
+                pub_date=data['pub_date'].value()
+            )
+        return render(request, 'searcher/searcher.html', {'form': form, 'message': 'Successfully created Article'})
+    return render(request, 'searcher/searcher.html', {'form': form})

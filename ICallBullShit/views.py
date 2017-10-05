@@ -4,4 +4,10 @@ from detector.models import Article
 
 def admin(request):
     article_list = Article.objects.all()
-    return render(request, 'detector/index.html', {'article_list': article_list})
+    return render(request, 'admin/admin.html', {'article_list': article_list})
+
+def remove(request, article_id):
+    article = Article.objects.get(pk=article_id)
+    article.delete()
+    article_list = Article.objects.all()
+    return redirect('admin')
