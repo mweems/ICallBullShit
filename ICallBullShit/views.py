@@ -1,14 +1,19 @@
 from django.shortcuts import render, redirect
-from detector.models import Article
+from detector.models import Article, Props
 
 
 def admin(request):
-    article_list = Article.objects.all()
-    return render(request, 'admin/admin.html', {'article_list': article_list})
+    articles = Article.objects.all()
 
-def remove(request, article_id):
+    return render(request, 'admin/admin.html', {'articles': articles})
+
+def remove_article(request, article_id):
     article = Article.objects.get(pk=article_id)
     article.delete()
-    article_list = Article.objects.all()
+    return redirect('admin')
+
+def remove_prop(request, prop_id):
+    prop = Props.objects.get(pk=prop_id)
+    prop.delete()
     return redirect('admin')
 

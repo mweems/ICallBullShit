@@ -4,17 +4,19 @@ from .forms import PropForm, ArticleForm
 import requests
 import justext
 
+
 def index(request):
-    article_list = Article.objects.all()
-    return render(request, 'detector/index.html', {'article_list': article_list})
+    articles = Article.objects.all()
+    return render(request, 'detector/index.html', {'articles': articles})
 
 def detail(request, article_id):
     article = Article.objects.get(pk=article_id)
 
     if request.method == "POST":
         form = PropForm(request.POST)
+        body = form['body'].value()
         if form.is_valid():
-            Props.objects.create(article=article, body=form)
+            Props.objects.create(article=article, body=body)
 
     form = PropForm()
     return render(request, 'detector/detail.html', {'article': article, 'form': form})
@@ -22,12 +24,12 @@ def detail(request, article_id):
 def create_article(request):
     form = ArticleForm()
     if request.method == 'POST':
-        data = ArticleForm(request.POST)
+        form = ArticleForm(request.POST)
 
-        response = requests.get(data['body'].value())
+        response = requests.get(form['body'].value())
         paragraphs = justext.justext(response.content, justext.get_stoplist("English"))
-        if data.is_valid():
-            publisher = data['publisher'].value()
+        if form.is_valid():
+            publisher = form['publisher'].value()
             body = ''
             for paragraph in paragraphs:
                 if publisher in paragraph.text:
@@ -37,11 +39,11 @@ def create_article(request):
                 if not paragraph.is_boilerplate:
                     body += text
             Article.objects.create(
-                publisher=data['publisher'].value(),
-                author=data['author'].value(),
-                headline=data['headline'].value(),
-                body=data['body'].value(),
-                pub_date=data['pub_date'].value()
+                publisher=form['publisher'].value(),
+                author=form['author'].value(),
+                headline=form['headline'].value(),
+                body=form['body'].value(),
+                pub_date=form['pub_date'].value()
             )
         return render(request, 'searcher/create_article.html', {'form': form, 'message': 'Successfully created Article'})
     return render(request, 'searcher/create_article.html', {'form': form})

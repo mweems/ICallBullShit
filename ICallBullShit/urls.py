@@ -14,10 +14,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url, include
-from .views import admin, remove
+from .views import admin, remove_article, remove_prop
 
 urlpatterns = [
     url(r'^admin/', admin, name='admin'),
-    url(r'^remove/(?P<article_id>[0-9]+)/$', remove, name='remove'),
+    url(r'^remove_article/(?P<article_id>[0-9]+)/$', remove_article, name='remove_article'),
+    url(r'^remove_prop/(?P<prop_id>[0-9]+)/$', remove_prop, name='remove_prop'),
     url(r'^detector/', include('detector.urls')),
 ]

@@ -1,7 +1,12 @@
 <ul>
-{% for article in article_list %}
+{% for article in articles %}
     <li>
-        <a href="{% url 'detector:detail' article.id %}">{{article}}</a>
+        <a href="{% url 'detector:detail' article.id %}">{{article}}</a><br>
+        {% for prop in article.props_set.all %}
+        <li style="margin-left: 15px;">
+            <a href="" >{{prop.body}}</a><br>
+        </li>
+        {% endfor %}
     </li>
 {% empty %}
     <li>There are currently no articles</li>
