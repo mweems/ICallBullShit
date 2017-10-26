@@ -9,6 +9,9 @@ class ArticleForm(ModelForm):
         widgets = {
             'body': forms.TextInput()
         }
+        labels = {
+            'body':'Article URL'
+        }
 
 class PropForm(ModelForm):
     class Meta:

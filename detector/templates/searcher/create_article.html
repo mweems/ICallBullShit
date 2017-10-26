@@ -1,0 +1,5 @@
+
+<form action="{% url 'detector:create_article' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+    <ul>{{form.as_p}}</ul>
+    <input type="submit" value="Submit" />
+</form>

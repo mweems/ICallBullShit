@@ -19,7 +19,7 @@ def detail(request, article_id):
     form = PropForm()
     return render(request, 'detector/detail.html', {'article': article, 'form': form})
 
-def search(request):
+def create_article(request):
     form = ArticleForm()
     if request.method == 'POST':
         data = ArticleForm(request.POST)
@@ -37,11 +37,11 @@ def search(request):
                 if not paragraph.is_boilerplate:
                     body += text
             Article.objects.create(
-                publisher=publisher,
+                publisher=data['publisher'].value(),
                 author=data['author'].value(),
                 headline=data['headline'].value(),
-                body=body,
+                body=data['body'].value(),
                 pub_date=data['pub_date'].value()
             )
-        return render(request, 'searcher/searcher.html', {'form': form, 'message': 'Successfully created Article'})
-    return render(request, 'searcher/searcher.html', {'form': form})
+        return render(request, 'searcher/create_article.html', {'form': form, 'message': 'Successfully created Article'})
+    return render(request, 'searcher/create_article.html', {'form': form})

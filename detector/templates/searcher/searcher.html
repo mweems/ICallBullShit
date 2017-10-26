@@ -1,8 +1,0 @@
-{% if message %}
-<h2>{{message}}</h2>
-{% endif %}
-
-<form action="{% url 'detector:search' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
-    <ul>{{form.as_p}}</ul>
-    <input type="submit" value="Submit" />
-</form>

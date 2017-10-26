@@ -11,3 +11,4 @@ def remove(request, article_id):
     article.delete()
     article_list = Article.objects.all()
     return redirect('admin')
+
