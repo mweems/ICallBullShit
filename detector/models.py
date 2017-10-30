@@ -17,3 +17,11 @@ class Props(models.Model):
     body = models.TextField()
     created_date = models.DateField(auto_now=False, auto_now_add=True)
 
+
+class Comment(models.Model):
+    prop = models.ForeignKey(Props, on_delete=models.CASCADE)
+    parent = models.ForeignKey('self', blank=True)
+    body = models.TextField()
+    created_date = models.DateField(auto_now=False, auto_now_add=True)
+
+

@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Props, Article
+from .models import Props, Article, Comment
 from django import forms
 
 class ArticleForm(ModelForm):
@@ -16,4 +16,9 @@ class ArticleForm(ModelForm):
 class PropForm(ModelForm):
     class Meta:
         model = Props
+        fields = ['body']
+
+class CommentForm(ModelForm):
+    class Meta:
+        model = Comment
         fields = ['body']

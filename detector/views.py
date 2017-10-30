@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Article, Props
-from .forms import PropForm, ArticleForm
+from .forms import PropForm, ArticleForm, CommentForm
 import requests
 import justext
 
@@ -20,6 +20,20 @@ def detail(request, article_id):
 
     form = PropForm()
     return render(request, 'detector/detail.html', {'article': article, 'form': form})
+
+def discussion(request, prop_id):
+    prop = Props.objects.get(pk=prop_id)
+
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        body = form['body'].value()
+        if form.is_valid():
+            Comment.objects.create(prop=prop, body=body)
+
+    form = CommentForm()
+    return render(request, 'discussion/detail.html', {'prop': prop, 'form': form})
+
+
 
 def create_article(request):
     form = ArticleForm()
