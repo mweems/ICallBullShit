@@ -1,12 +1,14 @@
 #article {
     width: 100%;
     margin: 5px;
+    background-color: blue;
 }
 #props {
     width: 35%;
     border: 1px solid red;
     margin: 5px;
     float: left;
+    background-color: red;
 }
 #newProp {
     width: 60%;

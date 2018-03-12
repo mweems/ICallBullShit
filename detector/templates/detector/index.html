@@ -1,14 +1,39 @@
-<ul>
-{% for article in articles %}
-    <li>
-        <a href="{% url 'detector:detail' article.id %}">{{article}}</a><br>
-        {% for prop in article.props_set.all %}
-        <li style="margin-left: 15px;">
-            <a href="" >{{prop.body}}</a><br>
-        </li>
-        {% endfor %}
-    </li>
-{% empty %}
-    <li>There are currently no articles</li>
-{% endfor %}
-</ul>
+<html>
+    <head>
+        {% load static %}
+        <link rel="stylesheet" type="text/css" href="{% static 'detector/style.css'%}">
+    </head>
+    <body>
+        <table>
+            <thead>
+                <tr>
+                    <td>
+                        Article
+                    </td>
+                    <td>
+                        Props
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+            {% for article in articles %}
+                <tr>
+                    <td id='article'>
+                        <a href="{% url 'detector:detail' article.id %}">{{article}}</a><br>
+                    </td>
+
+                    {% for prop in article.props_set.all %}
+                        <tr>
+                            <td id='props'>
+                                <a href="{% url 'detector:discussion' prop.id%}">{{prop.body}}</a><br>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tr>
+            </tbody>
+            {% empty %}
+            <li>There are currently no articles</li>
+            {% endfor %}
+        </table>
+    </body>
+</html>
