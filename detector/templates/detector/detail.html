@@ -1,24 +1,34 @@
-<html>
-    <head>
-        {% load static %}
-        <link rel="stylesheet" type="text/css" href="{% static 'detector/style.css'%}">
-    </head>
-    <body>
-        <div id="article">
-            <h2>{{article.headline}}</h2>
-            <p>{{article.body}}</p>
-        </div>
-        <div id="props">
+<!DOCTYPE html>
+<head>
+ <meta http-equiv="content-type" content="text/html; charset=utf-8">
+ <style>
+
+ </style>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'detector/style.css'%}">
+    <title>Article</title>
+</head>
+<body>
+    <div class="page">
+        <div class="pageRightPanel">
             {% for prop in article.props_set.all %}
                 <p><a href="{% url 'detector:discussion' prop.id%}">{{prop.body}}</a></p>
             {% endfor %}
         </div>
-        <div id="newProp">
+        <div class="pageHeader">
+            <a class='back' href="{% url 'detector:index' %}">Article List</a>
+            <h2>{{article.headline}}</h2>
+        </div>
+        <div class="pageContent">
+            <p>{{ article.body|linebreaks }}</p>
+        </div>
+        <div class="pageFooter">
             <form method="post" >
-            {% csrf_token %}
-            {{form}}
-            <button type="submit" class="btn btn-default">Submit</button>
+                {% csrf_token %}
+                {{form}}
+                <button type="submit" class="btn btn-default">Submit</button>
             </form>
         </div>
-    </body>
+    </div>
+</body>
 </html>

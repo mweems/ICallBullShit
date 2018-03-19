@@ -21,7 +21,6 @@
                     <td id='article'>
                         <a href="{% url 'detector:detail' article.id %}">{{article}}</a><br>
                     </td>
-
                     {% for prop in article.props_set.all %}
                         <tr>
                             <td id='props'>
@@ -32,7 +31,7 @@
                 </tr>
             </tbody>
             {% empty %}
-            <li>There are currently no articles</li>
+                <li>There are currently no articles</li>
             {% endfor %}
         </table>
     </body>

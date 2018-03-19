@@ -6,7 +6,10 @@
     <body>
         <div id="prop">
             <h2>{{prop.body}}</h2>
-            <p><a href="{% url 'detector:detail' prop.article.id%}">Article</a></p>
+            <p>
+                <a href="{% url 'detector:detail' prop.article.id%}">Article</a>
+                <a id='back' href="{% url 'detector:index' %}">Article List</a>
+            </p>
         </div>
         <div id="comment">
             {% for comment in props.comment_set.all %}
