@@ -5,7 +5,7 @@
     </head>
     <body>
         <h2 class='header'>Welcome to I Call Bullshit</h2>
-        <div style='float:right; margin-right: 5em;'>
+        <div class='back'>
             <a href="create_article">Add New Article</a>
         </div>
         <table>
@@ -14,7 +14,7 @@
                     <td>
                         Article
                     </td>
-                    <td style='padding-left: 10em'>
+                    <td>
                         Propaganda
                     </td>
                 </tr>
@@ -26,11 +26,9 @@
                         <a href="{% url 'detector:detail' article.id %}">{{article}}</a><br>
                     </td>
                     {% for prop in article.props_set.all %}
-                        <tr>
                             <td id='props'>
                                 <a href="{% url 'detector:discussion' prop.id%}">{{prop.body}}</a><br>
                             </td>
-                        </tr>
                     {% endfor %}
                 </tr>
             </tbody>
