@@ -7,7 +7,8 @@ class ArticleForm(ModelForm):
         model = Article
         exclude = []
         widgets = {
-            'body': forms.TextInput()
+            'body': forms.TextInput(),
+            'pub_date': forms.DateInput({'type': 'date'})
         }
         labels = {
             'body':'Article URL'
@@ -17,8 +18,17 @@ class PropForm(ModelForm):
     class Meta:
         model = Props
         fields = ['body']
+        widgets = {
+            'body': forms.TextInput(),
+        }
+        labels = {
+            'body': "Add Propoganda"
+        }
 
 class CommentForm(ModelForm):
     class Meta:
         model = Comment
-        fields = ['body']
+        fields = ['text']
+        labels = {
+            'text': 'Add Comment'
+        }

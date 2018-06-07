@@ -26,9 +26,9 @@ def discussion(request, prop_id):
 
     if request.method == "POST":
         form = CommentForm(request.POST)
-        body = form['body'].value()
+        text = form['text'].value()
         if form.is_valid():
-            Comment.objects.create(prop=prop, body=body)
+            Comment.objects.create(prop=prop, text=text)
 
     form = CommentForm()
     return render(request, 'discussion/detail.html', {'prop': prop, 'form': form})
@@ -56,8 +56,8 @@ def create_article(request):
                 publisher=form['publisher'].value(),
                 author=form['author'].value(),
                 headline=form['headline'].value(),
-                body=form['body'].value(),
+                body=body,
                 pub_date=form['pub_date'].value()
             )
-        return render(request, 'searcher/create_article.html', {'form': form, 'message': 'Successfully created Article'})
+        return redirect('/detector')
     return render(request, 'searcher/create_article.html', {'form': form})
