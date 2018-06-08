@@ -5,10 +5,11 @@
         <a href="{% url 'remove_article' article.id %}">Remove</a><br>
         {% for prop in article.props_set.all %}
         <li  style="margin-left: 15px;">
-            <a href="{% url 'detector:discussion' prop.id %}">{{prop.propaganda}}</a>
+            <a href="{% url 'detector:discussion' prop.id %}">{{prop.body}}</a>
             <a href="{% url 'remove_prop' prop.id %}">Remove</a><br>
         </li>
         {% endfor %}
+        <br>
     </li>
 {% empty %}
     <li>There are currently no articles</li>
