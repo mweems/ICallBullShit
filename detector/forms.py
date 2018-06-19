@@ -29,6 +29,9 @@ class CommentForm(ModelForm):
     class Meta:
         model = Comment
         fields = ['text']
+        widgets = {
+            'text': forms.TextInput()
+        }
         labels = {
             'text': 'Add Comment'
         }

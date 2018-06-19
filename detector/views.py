@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Article, Props
+from .models import Article, Props, Comment
 from .forms import PropForm, ArticleForm, CommentForm
 import requests
 import justext
@@ -23,6 +23,7 @@ def detail(request, article_id):
 
 def discussion(request, prop_id):
     prop = Props.objects.get(pk=prop_id)
+    comments = Comment.objects.all().filter(prop=prop)
 
     if request.method == "POST":
         form = CommentForm(request.POST)
@@ -31,7 +32,7 @@ def discussion(request, prop_id):
             Comment.objects.create(prop=prop, text=text)
 
     form = CommentForm()
-    return render(request, 'discussion/detail.html', {'prop': prop, 'form': form})
+    return render(request, 'discussion/detail.html', {'prop': prop, 'form': form, 'comments': comments})
 
 
 

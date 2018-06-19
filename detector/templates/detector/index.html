@@ -25,11 +25,11 @@
                     <td id='article'>
                         <a href="{% url 'detector:detail' article.id %}">{{article}}</a><br>
                     </td>
-                    {% for prop in article.props_set.all %}
                             <td id='props'>
+                    {% for prop in article.props_set.all %}
                                 <a href="{% url 'detector:discussion' prop.id%}">{{prop.body}}</a><br>
-                            </td>
                     {% endfor %}
+                            </td>
                 </tr>
             </tbody>
             {% empty %}

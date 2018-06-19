@@ -16,7 +16,7 @@
         <div class='props'>
             <div class='prop-list'>
                 {% for prop in article.props_set.all %}
-                    <p><a href="{% url 'detector:discussion' prop.id%}">    {{prop.body}}</a></p>
+                    <p><a href="{% url 'detector:discussion' prop.id%}">{{prop.body}}</a></p>
                 {% endfor %}
             </div>
             <div class='new-prop'>
